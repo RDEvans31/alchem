@@ -11,4 +11,4 @@ for event in events:
     response = requests.post("http://localhost:80/event", json=event)
     print(f"Posted event: {event['event_name']} with status {event['event_data']['status']}")
     print(response.json())
-    time.sleep(3)
+    time.sleep(4)
