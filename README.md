@@ -1,4 +1,4 @@
-# Alchem Prototype event driven architecture
+# Alchem Prototype
 A minimal management console - single page on next.js that polls the apij every 5 seconds.
 
 A Python FastAPI API that handles events and communicates with the database.
