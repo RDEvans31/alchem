@@ -1,7 +1,7 @@
 # Alchem Prototype event driven architecture
 A minimal management console - single page on next.js that polls the apij every 5 seconds.
 
-A Pythoon FastAPI API that handles events and communicates with the database.
+A Python FastAPI API that handles events and communicates with the database.
 
 The database is a SQLite database that is generated on startup
 
