@@ -10,34 +10,37 @@ export default function ManagementConsole() {
   const [error, setError] = useState<string | null>(null);
   const [currentEventId, setCurrentEventId] = useState(null);
 
-  // Poll the API every 5 seconds
-  useEffect(() => {
-    const fetchLatestData = async () => {
-      try {
-        const response = await fetch(`${API_ENDPOINT}/latest_event_id`);
-        const result = await response.json();
-        console.log(result);
-        const latestEventId = result["id"];
-        if (latestEventId) {
-          if (latestEventId !== currentEventId) {
-            console.log('Fetching latest data...');
-            // Fetch the latest data
-            const response = await fetch(`${API_ENDPOINT}/events`);
-            const res = await response.json();
-            setData(res.body);
-            setCurrentEventId(latestEventId);
-          }
+  const fetchLatestData = async () => {
+    try {
+      const response = await fetch(`${API_ENDPOINT}/latest_event_id`);
+      const result = await response.json();
+      console.log(result);
+      const latestEventId = result["id"];
+      if (latestEventId) {
+        if (latestEventId !== currentEventId) {
+          console.log('Fetching latest data...');
+          // Fetch the latest data
+          const response = await fetch(`${API_ENDPOINT}/events`);
+          const res = await response.json();
+          setData(res.body);
+          setCurrentEventId(latestEventId);
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError(error.message);
+      } else {
+        console.log('No new data available');
+        setData([]);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError(error.message);
+    }
+  };
+
+  useEffect(() => {
     fetchLatestData();
-    const intervalId = setInterval(fetchLatestData, 5000); // Poll every 20 seconds
+    const intervalId = setInterval(fetchLatestData, 5000); // Poll every 5 seconds
 
     return () => clearInterval(intervalId);
-  }, [currentEventId]);
+  }, []);
 
   return (
     <div style={{ padding: '20px', height: '100vh'}}>
